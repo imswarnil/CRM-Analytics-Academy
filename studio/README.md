@@ -25,26 +25,28 @@ node studio/build-film.mjs trailer             # the channel trailer (flat, the 
 node studio/build-film.mjs kit-preview         # test reel of the other scene types
 ```
 
-**The channel trailer** (`films/trailer.json`, 1:10, 30 bars of *Dizzy*) sells how the course teaches,
-not what it teaches. It is laid out as **one flat canvas** (`"layout": "canvas"`): every scene is a card
-at its own `at` cell, and between two scenes a line draws from one card to the next while the view
-travels along it (2D position and scale only, landing just before the downbeat), so the cards you have
-passed stay on the canvas and lines can cross. It opens on kinetic type, one treatment per line
-(`typeLine`): *Welcome.* / *Want to learn CRM Analytics?* / *Write SAQL?* with the last word swapping on
-the beat / *Build dashboards people actually use?* / *You're in the right place.* Then `method` cards:
-a statement about the method over a board where a term turns into a drawing (LEFT JOIN, BINDING,
-RECIPE, SNAPSHOT), a widget gets built, a quiz is answered and real rows stream in. Then what you will
-build, AI, `aboutMe`, your subscribe clip, and the end screen, reached by pulling back over the whole
-canvas. `aboutMe` is two columns: your photo, then name, role, years, companies. Files go in
-`workspace/01-camera/trailer/`: `photo.jpg` (scene `"photo": "photo"`) and camera clips (scene
-`"clip": "clip-02-subscribe"`, played full frame with the music ducked; the scene grows to fit).
+**The channel trailer** (`films/trailer.json`, 1:03, 27 bars of *Dizzy*) is just a channel trailer:
+brand, feeling, the promise, you, subscribe. No lessons, no curriculum. It is set in **one open white
+world**: scenes are places in it (no lines, cards, frames or panels), and the camera glides between
+them (2D pan and zoom, plus a gentle turn from each scene's `rot`), landing on the beat. Everything
+**morphs** instead of cutting: *Welcome.* / *Want to learn CRM Analytics?* whose letters become bars,
+the "?" a donut and the underline a line chart (`morphCharts`) / *Write SAQL?* with the word swapping
+on the beat / *Build dashboards people actually use?* / *You're in the right place.* (`typeLine`); then
+"data" bursting into dots that stack into bars and say "insight." (`dataInsight`), a pen line that
+unfolds slides and becomes a road with stops (`pathRoad`), AI sketches that become widgets
+(`aiSketch`); then `aboutMe`, your subscribe clip and the end screen, on white (`light: true`).
+Files go in `workspace/01-camera/trailer/`: `photo.jpg` (scene `"photo": "photo"`) and camera clips
+(scene `"clip": "clip-02-subscribe"`, played full frame with the music ducked; the scene grows to fit).
 Missing ones show placeholders saying what is needed.
 
-**Canvas films** (`"layout": "canvas"`, handled by `KIT.canvasMaster` in `aftereffects/kit/film.jsx`):
-`canvas.cell` (px per cell, default 2500 × 1500), `canvas.move` (beats a move takes, default 1.5),
-`canvas.grid` (dot spacing). Per scene: `at` [column, row]; `link` {`from`, `to`: top | bottom |
-left | right, `bend`: px} to route the line; `move` (beats); `overview: true` pulls back over the whole
-canvas on the way in. Other films keep cutting from scene to scene.
+**Canvas films** (`"layout": "canvas"`, `KIT.canvasMaster` in `aftereffects/kit/film.jsx`): every
+scene is placed at its `at` [column, row] in cells of `canvas.cell` px, and a VIEW null travels
+between them (2D position, scale and rotation only, never 3D) in `canvas.move` beats, landing just
+before the downbeat; scenes hold their first frame before they play and their last after. Two looks:
+`canvas.cards: false` is the **white world** (scenes have no background and are never clipped,
+scene `rot` turns the view, `canvas.tilt` adds a sway on each move, `canvas.floor` sets the colour),
+otherwise **cards on a board** with a dot grid and connector lines (`link` {`from`, `to`, `bend`},
+`overview: true` pulls back over everything). Other films keep cutting from scene to scene.
 `films/trailer-clips.md` is the brief.
 
 A film is a JSON spec in `films/`. Without `voice` it is **text and music only** (the intro):
@@ -129,7 +131,11 @@ Or ask Claude: "make me a comp that shows a left join fanning out". New scene ty
 | `method` | How you learn: a caption, then glimpses on a board that slide in turn: `venn`, `binding`, `flow`, `trend`, `build`, `quiz`, `realdata` |
 | `buildMontage` | What you will build: conversion, adoption and snapshot dashboards slide in on the beat |
 | `aiFlash` | AI: a prompt types, a mockup sketches itself, the data is checked |
-| `aboutMe` | Two columns: your photo, then name, role, years, companies (placeholders until filled) |
+| `morphCharts` | A word becomes charts: each letter becomes a bar, the "?" a donut, the underline a line chart |
+| `dataInsight` | "data" bursts into dots, they scatter, stack into columns, fuse into bars, and the tallest says "insight." |
+| `pathRoad` | A pen line draws, slides unfold along it, then it thickens into a road with stops, running out of frame |
+| `aiSketch` | A prompt types, dashed sketches draw, each becomes a real widget |
+| `aboutMe` | Two columns: your photo, then name, role, years, companies (placeholders until filled); `light: true` on white |
 | `clipSlot` | Your camera clip with a name card, or a placeholder until it exists |
 
 ## Install into the apps (once)

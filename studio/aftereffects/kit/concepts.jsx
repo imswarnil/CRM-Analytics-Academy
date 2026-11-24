@@ -296,15 +296,18 @@ SCENES_INFO.push(
   // The dashed slots are where YouTube's end-screen elements sit (video on the left,
   // subscribe on the right); add them in YouTube Studio over these places.
   SCENES.endScreen = function (comp, p, T, dur) {
-    enter(comp, p, C.navy, T);
-    KIT.blobs(comp, C.frost, 6, 71, 7);
+    var lt = !!p.light;
+    var ink = lt ? C.navy : C.white;
+    var soft = lt ? C.signal : C.frost;
+    enter(comp, p, lt ? C.white : C.navy, T);
+    if (!lt) KIT.blobs(comp, C.frost, 6, 71, 7);
     KIT.mark(comp, 170, 140, 90, T);
-    KIT.pop(KIT.eyebrow(comp, p.kicker || 'START HERE', 600, 230, C.frost), T + 0.2);
+    KIT.pop(KIT.eyebrow(comp, p.kicker || 'START HERE', 600, 230, soft), T + 0.2);
     var slot = KIT.shapeLayer(comp, 'Video slot (YouTube end screen)');
     var g = KIT.group(slot, 'Slot');
     KIT.rectIn(g, 880, 495, 22);
-    KIT.fill(g, C.white, 8);
-    var st = KIT.stroke(g, C.frost, 4);
+    KIT.fill(g, lt ? C.ice : C.white, lt ? 100 : 8);
+    var st = KIT.stroke(g, soft, 4);
     try {
       st.property('ADBE Vector Stroke Dashes').addProperty('ADBE Vector Stroke Dash 1').setValue(18);
     } catch (e) {
@@ -312,14 +315,14 @@ SCENES_INFO.push(
     }
     KIT.at(slot, 600, 540);
     KIT.pop(slot, T + 0.3);
-    KIT.pop(KIT.icon(comp, 'play', 600, 520, 130, C.navy, C.white), T + 0.5);
-    var nx = KIT.text(comp, p.next || 'Lesson 1 · Objects, fields and relationships', { size: 30, font: F.bold, color: C.white, x: 600, y: 850 });
+    KIT.pop(KIT.icon(comp, 'play', 600, 520, 130, lt ? C.white : C.navy, lt ? C.signal : C.white), T + 0.5);
+    var nx = KIT.text(comp, p.next || 'Lesson 1 · Objects, fields and relationships', { size: 30, font: F.bold, color: ink, x: 600, y: 850 });
     KIT.fade(nx, T + 0.6, T + 0.9, 0, 100);
     var sub = KIT.shapeLayer(comp, 'Subscribe slot (YouTube end screen)');
     var sg = KIT.group(sub, 'Slot');
     KIT.ellipseIn(sg, 300, 300);
-    KIT.fill(sg, C.white, 8);
-    var ss = KIT.stroke(sg, C.frost, 4);
+    KIT.fill(sg, lt ? C.ice : C.white, lt ? 100 : 8);
+    var ss = KIT.stroke(sg, soft, 4);
     try {
       ss.property('ADBE Vector Stroke Dashes').addProperty('ADBE Vector Stroke Dash 1').setValue(18);
     } catch (e2) {
@@ -327,9 +330,9 @@ SCENES_INFO.push(
     }
     KIT.at(sub, 1440, 430);
     KIT.pop(sub, T + 0.45);
-    KIT.pop(KIT.text(comp, 'Subscribe', { size: 40, font: F.black, color: C.white, x: 1440, y: 640 }), T + 0.7);
-    KIT.pop(KIT.rect(comp, 'Visit pill', 640, 96, 48, C.white, 1440, 790), T + 0.9);
-    KIT.pop(KIT.text(comp, p.url || 'crmanalytics.imswarnil.com', { size: 34, font: F.bold, color: C.navy, x: 1440, y: 790 }), T + 0.95);
-    if (p._credit) KIT.fade(KIT.text(comp, p._credit, { size: 22, font: F.medium, color: C.frost, y: 1035 }), T + 1.2, T + 1.6, 0, 70);
+    KIT.pop(KIT.text(comp, 'Subscribe', { size: 40, font: F.black, color: ink, x: 1440, y: 640 }), T + 0.7);
+    KIT.pop(KIT.rect(comp, 'Visit pill', 640, 96, 48, lt ? C.navy : C.white, 1440, 790), T + 0.9);
+    KIT.pop(KIT.text(comp, p.url || 'crmanalytics.imswarnil.com', { size: 34, font: F.bold, color: lt ? C.white : C.navy, x: 1440, y: 790 }), T + 0.95);
+    if (p._credit) KIT.fade(KIT.text(comp, p._credit, { size: 22, font: F.medium, color: lt ? C.muted : C.frost, y: 1035 }), T + 1.2, T + 1.6, 0, 70);
   };
 }());

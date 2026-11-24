@@ -697,7 +697,8 @@ SCENES_INFO.push(
   // With p._clip (the build found the file): the clip full frame, with a lower third.
   // Without it: a placeholder that says exactly what to record.
   SCENES.clipSlot = function (comp, p, T, dur) {
-    KIT.enter(comp, p._transition || 'slices', C.navy, T);
+    var lt = !!p.light;
+    KIT.enter(comp, p._transition || 'slices', lt ? C.white : C.navy, T);
     if (p._clip) {
       KIT.footage = KIT.footage || {};
       var it = KIT.footage[p._clip];
@@ -714,15 +715,15 @@ SCENES_INFO.push(
       KIT.at(V, 960, 540);
       KIT.fade(V, T - 0.25, T - 0.05, 0, 100);
     } else {
-      KIT.blobs(comp, C.frost, 5, 40 + (p.n || 1), 6);
-      var fr = box(comp, 'Placeholder frame', 1560, 800, 22, 960, 500, { stroke: C.frost, width: 4, dash: 18, fill: C.white, opacity: 5 });
+      if (!lt) KIT.blobs(comp, C.frost, 5, 40 + (p.n || 1), 6);
+      var fr = box(comp, 'Placeholder frame', 1560, 800, 22, 960, 500, lt ? { stroke: C.signal, width: 4, dash: 18, fill: C.ice } : { stroke: C.frost, width: 4, dash: 18, fill: C.white, opacity: 5 });
       var nn = ('0' + (p.n || 1)).slice(-2);
-      var eb = KIT.eyebrow(comp, 'Your clip ' + nn + ' · drop it in, rebuild', 960, 190, C.frost);
-      var tt = KIT.text(comp, p.title || 'Your clip', { size: 92, font: F.black, color: C.white, y: 300 });
-      var sy = KIT.text(comp, '“' + wrap(p.say || '', 52) + '”', { size: 38, font: F.medium, color: C.frost, y: 470, leading: 52 });
+      var eb = KIT.eyebrow(comp, 'Your clip ' + nn + ' · drop it in, rebuild', 960, 190, lt ? C.signal : C.frost);
+      var tt = KIT.text(comp, p.title || 'Your clip', { size: 92, font: F.black, color: lt ? C.navy : C.white, y: 300 });
+      var sy = KIT.text(comp, '“' + wrap(p.say || '', 52) + '”', { size: 38, font: F.medium, color: lt ? C.muted : C.frost, y: 470, leading: 52 });
       var notes = p.notes || [];
-      var nt = KIT.text(comp, notes.join('\r'), { size: 24, font: F.mono, color: C.frost, y: 720, leading: 36 });
-      var fl = KIT.text(comp, 'studio/workspace/01-camera/' + (p._film || 'trailer') + '/' + (p.file || 'clip-' + nn + '.mov'), { size: 26, font: F.monoBold, color: C.white, y: 860 });
+      var nt = KIT.text(comp, notes.join('\r'), { size: 24, font: F.mono, color: lt ? C.muted : C.frost, y: 720, leading: 36 });
+      var fl = KIT.text(comp, 'studio/workspace/01-camera/' + (p._film || 'trailer') + '/' + (p.file || 'clip-' + nn + '.mov'), { size: 26, font: F.monoBold, color: lt ? C.navy : C.white, y: 860 });
       var ph = [fr, eb, tt, sy, nt, fl];
       for (var i = 0; i < ph.length; i++) ph[i].name = 'Placeholder ' + ph[i].name;
       arrive(ph, T, 24);

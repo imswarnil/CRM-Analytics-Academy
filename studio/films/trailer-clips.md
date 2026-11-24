@@ -39,7 +39,9 @@ Use only company names you are free to mention publicly.
 
 ## Clip: subscribe (≈ 4 to 6 s), just before the end screen
 
-> "Subscribe, open lesson one, and build it with me. See you inside."
+> "Subscribe, and let's build it together. See you inside."
+
+It's a channel trailer: no lesson names, nothing about the curriculum.
 
 Point toward the right of the frame on "subscribe": the end screen's subscribe button
 appears on the right. End on a smile and hold.

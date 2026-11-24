@@ -587,6 +587,13 @@ KIT.enter = function (comp, kind, color, T, x, y) {
   if (kind === 'diag') return KIT.diag(comp, color, T - 0.5);
   if (kind === 'bars') return KIT.barsWipe(comp, color, T - 0.5);
   if (kind === 'push') return KIT.push(comp, color, T);
+  // 'world': the scene sits in the film's open white world and has no background of its own.
+  if (kind === 'world') {
+    var none = KIT.rect(comp, 'BG (none: world)', comp.width, comp.height, 0, color, comp.width / 2, comp.height / 2);
+    none.property('ADBE Transform Group').property('ADBE Opacity').setValue(0);
+    none.enabled = false;
+    return none;
+  }
   // 'canvas': the scene is a card on the film's canvas, so its background is there from the start.
   if (kind === 'none' || kind === 'canvas') return KIT.rect(comp, 'BG', comp.width, comp.height, 0, color, comp.width / 2, comp.height / 2);
   return KIT.reveal(comp, color, T - 0.5, x, y);

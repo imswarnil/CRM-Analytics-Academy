@@ -1,7 +1,7 @@
 {
   "title": "CRM Analytics Academy — channel trailer",
   "slug": "trailer",
-  "note": "Sells how the course teaches, not what it teaches. The film is ONE flat canvas (`layout: canvas`): every scene is a card at its `at` cell, a line draws from card to card and the view travels along it (2D position and scale, never 3D), so earlier cards stay on the canvas. Kinetic-type questions open it on the beat (Welcome. / Want to learn CRM Analytics? / Write SAQL? recipes? bindings? dashboards? / Build dashboards people actually use? / You're in the right place.), then `method` cards: a caption about the method and short glimpses of concepts turning into motion graphics, what you'll build, AI, then you (aboutMe: workspace/01-camera/trailer/photo.jpg, fill the `about` props), your subscribe clip (clip-02-subscribe) and the end screen, reached by pulling back over the whole canvas. Text and music only.",
+  "note": "A channel trailer, nothing more: brand, feeling, the promise, you, subscribe. No lessons, no curriculum. One open WHITE world (`layout: canvas` with `canvas.cards: false`): scenes are places in it, no lines, cards, frames or panels; the camera glides between them (2D pan, zoom and a gentle turn from each scene's `rot`, landing on the beat). Everything morphs: kinetic-type questions on the beat (Welcome. / Want to learn CRM Analytics? whose letters become bars, '?' a donut, the underline a line chart / Write SAQL? recipes? bindings? dashboards? / Build dashboards people actually use? / You're in the right place.), 'data' bursting into dots that become bars and 'insight.', a pen line unfolding slides and becoming a road with stops, AI sketches becoming widgets; then you (aboutMe: workspace/01-camera/trailer/photo.jpg, fill the `about` props), your subscribe clip (clip-02-subscribe) and the end screen, all on white. Text and music only.",
   "music": {
     "file": "/Users/swarnil/Movies/YouTube/03 Assets/Music/dizzy-by-joakim-karud.mp3",
     "start": 0.1,
@@ -20,26 +20,25 @@
         0,
         0
       ],
+      "rot": 0,
       "props": {
         "style": "welcome",
         "text": "Welcome.",
-        "bg": "navy"
+        "bg": "white"
       }
     },
     {
       "id": "learn",
-      "type": "typeLine",
-      "bars": 2,
+      "type": "morphCharts",
+      "bars": 3,
       "at": [
         1,
         0
       ],
+      "rot": -3,
       "props": {
-        "style": "question",
         "small": "Want to learn",
-        "big": "CRM Analytics",
-        "mark": "?",
-        "bg": "paper"
+        "big": "CRM Analytics"
       }
     },
     {
@@ -47,9 +46,10 @@
       "type": "typeLine",
       "bars": 2,
       "at": [
-        2,
-        0
+        1,
+        1
       ],
+      "rot": 4,
       "props": {
         "style": "swap",
         "lead": "Write",
@@ -60,7 +60,7 @@
           "dashboards?",
           "SAQL?"
         ],
-        "bg": "navyDeep"
+        "bg": "white"
       }
     },
     {
@@ -68,9 +68,10 @@
       "type": "typeLine",
       "bars": 2,
       "at": [
-        2,
+        0,
         1
       ],
+      "rot": -2,
       "props": {
         "style": "underline",
         "line1": "Build dashboards",
@@ -85,130 +86,55 @@
       "type": "typeLine",
       "bars": 2,
       "at": [
-        1,
-        1
+        0,
+        2
       ],
+      "rot": 3,
       "props": {
         "style": "tracking",
         "small": "You’re in the",
         "big": "right place.",
-        "bg": "signal"
+        "bg": "white"
       }
     },
     {
-      "id": "drawn",
-      "type": "method",
-      "bars": 2,
-      "at": [
-        0,
-        1
-      ],
-      "props": {
-        "caption": "Every concept, drawn.",
-        "bg": "navy",
-        "glimpses": [
-          {
-            "kind": "venn",
-            "term": "LEFT JOIN"
-          },
-          {
-            "kind": "binding",
-            "term": "BINDING"
-          }
-        ]
-      }
-    },
-    {
-      "id": "move",
-      "type": "method",
-      "bars": 2,
-      "at": [
-        0,
-        2
-      ],
-      "props": {
-        "caption": "Watch the data move.",
-        "bg": "paper",
-        "glimpses": [
-          {
-            "kind": "flow",
-            "term": "RECIPE"
-          },
-          {
-            "kind": "trend",
-            "term": "SNAPSHOT"
-          }
-        ]
-      }
-    },
-    {
-      "id": "yourself",
-      "type": "method",
-      "bars": 2,
+      "id": "data",
+      "type": "dataInsight",
+      "bars": 3,
       "at": [
         1,
         2
       ],
+      "rot": 0,
       "props": {
-        "caption": "Then build it yourself.",
-        "bg": "navyDeep",
-        "glimpses": [
-          {
-            "kind": "build"
-          },
-          {
-            "kind": "quiz"
-          }
-        ]
+        "word": "data",
+        "result": "insight."
       }
     },
     {
-      "id": "real",
-      "type": "method",
-      "bars": 2,
+      "id": "path",
+      "type": "pathRoad",
+      "bars": 3,
       "at": [
         2,
         2
       ],
+      "rot": 0,
       "props": {
-        "caption": "On real data.",
-        "bg": "signal",
-        "glimpses": [
-          {
-            "kind": "realdata"
-          }
-        ]
-      },
-      "link": {
-        "from": "top",
-        "to": "top",
-        "bend": 1500
-      }
-    },
-    {
-      "id": "build",
-      "type": "buildMontage",
-      "bars": 2,
-      "at": [
-        3,
-        2
-      ],
-      "props": {
-        "caption": "What you’ll build.",
-        "bg": "paper"
+        "caption": "Your path."
       }
     },
     {
       "id": "ai",
-      "type": "aiFlash",
-      "bars": 2,
+      "type": "aiSketch",
+      "bars": 3,
       "at": [
         3,
-        1
+        2
       ],
+      "rot": 0,
       "props": {
-        "caption": "With AI at your side.",
-        "bg": "navy"
+        "caption": "AI at your side."
       }
     },
     {
@@ -221,12 +147,14 @@
         "role": null,
         "years": null,
         "companies": [],
-        "workedLabel": "WORKED WITH"
+        "workedLabel": "WORKED WITH",
+        "light": true
       },
       "at": [
-        4,
+        3,
         1
-      ]
+      ],
+      "rot": -3
     },
     {
       "id": "cta",
@@ -236,39 +164,43 @@
       "props": {
         "n": 2,
         "title": "Subscribe, then build with me",
-        "say": "Subscribe, open lesson one, and build it with me. See you inside.",
+        "say": "Subscribe, and let's build it together. See you inside.",
         "notes": [
           "4 to 6 s, landscape, eye level, mic close",
           "Point right on 'subscribe', end on a smile"
-        ]
+        ],
+        "light": true
       },
       "at": [
         4,
-        0
-      ]
+        1
+      ],
+      "rot": 2
     },
     {
       "id": "end",
       "type": "endScreen",
-      "bars": 4,
+      "bars": 3,
       "props": {
-        "next": "Lesson 1 · Objects, fields and relationships"
+        "next": "Watch this next",
+        "light": true
       },
       "at": [
-        5,
-        1
+        4,
+        2
       ],
-      "overview": true,
-      "move": 4
+      "rot": 0
     }
   ],
   "layout": "canvas",
   "canvas": {
+    "cards": false,
+    "floor": "#FFFFFF",
     "cell": [
-      2500,
-      1500
+      2600,
+      1600
     ],
     "move": 1.5,
-    "grid": 150
+    "tilt": 4
   }
 }

@@ -765,8 +765,10 @@ SCENES_INFO.push(
   // without it, a placeholder. Empty fields show as dashed placeholders to fill in the spec.
   SCENES.aboutMe = function (comp, p, T, dur) {
     var beat = p._beat || 0.585;
-    KIT.enter(comp, p._transition || 'diag', C.navy, T);
-    KIT.blobs(comp, C.frost, 5, 77, 6);
+    // p.light: on white (the trailer's world), navy and signal instead of white and frost.
+    var K = p.light ? { bg: C.white, ph: C.ice, phLine: C.signal, ink: C.navy, accent: C.signal, soft: C.muted, line: C.line, chip: C.ice } : { bg: C.navy, ph: C.navyDeep, phLine: C.frost, ink: C.white, accent: C.frost, soft: C.frost, line: C.frost, chip: C.white };
+    KIT.enter(comp, p._transition || 'diag', K.bg, T);
+    if (!p.light) KIT.blobs(comp, C.frost, 5, 77, 6);
     var fx = 470;
     var fy = 540;
     var fw = 640;
@@ -796,10 +798,10 @@ SCENES_INFO.push(
       ph.push(Lp);
       ph.push(U.box(comp, 'Photo border', fw, fh, 18, fx, fy, { stroke: C.white, width: 6 }));
     } else {
-      ph.push(U.box(comp, 'Photo placeholder', fw, fh, 18, fx, fy, { stroke: C.frost, width: 4, dash: 18, fill: C.navyDeep }));
-      ph.push(KIT.icon(comp, 'user', fx, fy - 60, 220, C.navy, C.frost));
-      ph.push(KIT.text(comp, 'YOUR PHOTO', { size: 30, font: F.bold, color: C.frost, tracking: 200, x: fx, y: fy + 120 }));
-      ph.push(KIT.text(comp, 'studio/workspace/01-camera/' + (p._film || 'trailer') + '/' + (p.photo || 'photo') + '.jpg', { size: 20, font: F.mono, color: C.frost, x: fx, y: fy + 170 }));
+      ph.push(U.box(comp, 'Photo placeholder', fw, fh, 18, fx, fy, { stroke: K.phLine, width: 4, dash: 18, fill: K.ph }));
+      ph.push(KIT.icon(comp, 'user', fx, fy - 60, 220, p.light ? C.white : C.navy, p.light ? C.signal : C.frost));
+      ph.push(KIT.text(comp, 'YOUR PHOTO', { size: 30, font: F.bold, color: K.accent, tracking: 200, x: fx, y: fy + 120 }));
+      ph.push(KIT.text(comp, 'studio/workspace/01-camera/' + (p._film || 'trailer') + '/' + (p.photo || 'photo') + '.jpg', { size: 20, font: F.mono, color: K.soft, x: fx, y: fy + 170 }));
     }
     var accent = KIT.rect(comp, 'Photo accent', fw, fh, 18, C.signal, fx + 26, fy + 26);
     accent.moveAfter(ph[0]);
@@ -810,20 +812,20 @@ SCENES_INFO.push(
     }
     // The right column.
     var x0 = 890;
-    var eb = KIT.text(comp, p.hello || 'HI, I\'M', { size: 28, font: F.bold, color: C.frost, tracking: 240, x: x0, y: 230, align: 'left' });
+    var eb = KIT.text(comp, p.hello || 'HI, I\'M', { size: 28, font: F.bold, color: K.accent, tracking: 240, x: x0, y: 230, align: 'left' });
     U.arrive([eb], T + 0.2, 16);
     var nm = String(p.name || 'Swarnil Singhai').split(' ');
     var nx = x0;
     for (i = 0; i < nm.length; i++) {
-      var w = KIT.text(comp, nm[i], { size: 110, font: F.black, color: i ? C.frost : C.white, x: nx, y: 330, align: 'left' });
+      var w = KIT.text(comp, nm[i], { size: 110, font: F.black, color: i ? K.accent : K.ink, x: nx, y: 330, align: 'left' });
       slamIn(w, T + beat * (0.5 + i * 0.5), 'rise', 110);
       nx += U.width(w) + 30;
     }
     var role = p.role;
-    var rl = KIT.text(comp, role || '[ your role ]', { size: 38, font: F.semi, color: role ? C.white : C.frost, x: x0, y: 430, align: 'left' });
+    var rl = KIT.text(comp, role || '[ your role ]', { size: 38, font: F.semi, color: role ? K.ink : K.soft, x: x0, y: 430, align: 'left' });
     if (!role) rl.property('ADBE Transform Group').property('ADBE Opacity').setValue(70);
     U.arrive([rl], T + beat * 2, 20);
-    var dv = KIT.rect(comp, 'Divider', 900, 3, 1, C.frost, x0 + 450, 500);
+    var dv = KIT.rect(comp, 'Divider', 900, 3, 1, K.line, x0 + 450, 500);
     dv.property('ADBE Transform Group').property('ADBE Anchor Point').setValue([-450, 0]);
     KIT.at(dv, x0, 500);
     KIT.keys(dv.property('ADBE Transform Group').property('ADBE Scale'), [[T + beat * 2.2, [0, 100, 100]], [T + beat * 3, [100, 100, 100]]], 85);
@@ -832,25 +834,25 @@ SCENES_INFO.push(
       var sx = x0 + i * 330;
       var ts = T + beat * (3 + i);
       var has = stats[i].value !== null && stats[i].value !== undefined && stats[i].value !== 0;
-      var nmb = KIT.text(comp, has ? '0' : 'X' + (stats[i].suffix || ''), { size: 120, font: F.black, color: has ? C.white : C.frost, x: sx, y: 610, align: 'left' });
+      var nmb = KIT.text(comp, has ? '0' : 'X' + (stats[i].suffix || ''), { size: 120, font: F.black, color: has ? K.ink : K.accent, x: sx, y: 610, align: 'left' });
       if (has) KIT.countUp(nmb, ts, ts + 1.0, stats[i].value, stats[i].suffix || '');
-      var lb = KIT.text(comp, stats[i].label, { size: 26, font: F.semi, color: C.frost, x: sx + 4, y: 700, align: 'left' });
+      var lb = KIT.text(comp, stats[i].label, { size: 26, font: F.semi, color: K.soft, x: sx + 4, y: 700, align: 'left' });
       U.arrive([nmb, lb], ts, 30);
     }
-    var we = KIT.text(comp, p.workedLabel || 'WORKED WITH', { size: 24, font: F.bold, color: C.frost, tracking: 220, x: x0, y: 790, align: 'left' });
+    var we = KIT.text(comp, p.workedLabel || 'WORKED WITH', { size: 24, font: F.bold, color: K.soft, tracking: 220, x: x0, y: 790, align: 'left' });
     U.arrive([we], T + beat * 5, 14);
     var cos = p.companies && p.companies.length ? p.companies : ['[ company ]', '[ company ]', '[ company ]'];
     var cx2 = x0;
     var cy2 = 860;
     for (i = 0; i < cos.length; i++) {
       var real = !!(p.companies && p.companies.length);
-      var tx = KIT.text(comp, cos[i], { size: 30, font: F.black, color: real ? C.navy : C.frost, x: 0, y: cy2 });
+      var tx = KIT.text(comp, cos[i], { size: 30, font: F.black, color: real ? C.navy : K.accent, x: 0, y: cy2 });
       var pw = U.width(tx) + 56;
       if (cx2 + pw > 1840) {
         cx2 = x0;
         cy2 += 84;
       }
-      var bx = U.box(comp, 'Company ' + (i + 1), pw, 66, 33, cx2 + pw / 2, cy2, real ? { fill: C.white } : { stroke: C.frost, width: 3, dash: 10 });
+      var bx = U.box(comp, 'Company ' + (i + 1), pw, 66, 33, cx2 + pw / 2, cy2, real ? { fill: K.chip } : { stroke: K.accent, width: 3, dash: 10 });
       KIT.at(tx, cx2 + pw / 2, cy2);
       tx.moveBefore(bx);
       KIT.pop(bx, T + beat * (5.5 + i * 0.5));

@@ -97,6 +97,13 @@ KIT.canvasMaster = function (master, tl, comps) {
     by0 = Math.min(by0, ws[i][1] - H / 2);
     by1 = Math.max(by1, ws[i][1] + H / 2);
   }
+  // A "world" (canvas.cards false) is one open space: no lines, no grid, no card
+  // edges; scenes have no background of their own, are never clipped
+  // (collapsed), and the view also turns (scene `rot`, canvas.tilt).
+  var world = cv.cards === false;
+  var showLines = cv.lines !== undefined ? cv.lines : !world;
+  var showGrid = cv.grid !== false && !world;
+  var showEdges = cv.edges !== undefined ? cv.edges : !world;
   var floor = KIT.rect(master, 'Canvas floor', W, H, 0, cv.floor ? KIT.hex(cv.floor) : C.navyDeep, W / 2, H / 2);
   var view = master.layers.addNull();
   view.name = 'VIEW (move this to travel the canvas)';
@@ -107,11 +114,12 @@ KIT.canvasMaster = function (master, tl, comps) {
     return L;
   }
   // The dot grid, drawn with two repeaters.
-  var gap = cv.grid || 150;
+  var gap = typeof cv.grid === 'number' ? cv.grid : 150;
   var cols = Math.ceil((bx1 - bx0 + 3000) / gap);
   var rows = Math.ceil((by1 - by0 + 2000) / gap);
-  var g = KIT.shapeLayer(master, 'Canvas grid');
+  var g = showGrid ? KIT.shapeLayer(master, 'Canvas grid') : null;
   var gg;
+  if (g) {
   gg = KIT.group(g, 'Dots');
   KIT.ellipseIn(gg, 9, 9);
   KIT.fill(gg, C.frost, 22);
@@ -125,6 +133,7 @@ KIT.canvasMaster = function (master, tl, comps) {
   rr2.property('ADBE Vector Repeater Transform').property('ADBE Vector Repeater Position').setValue([0, gap]);
   g.property('ADBE Transform Group').property('ADBE Anchor Point').setValue([0, 0]);
   hang(g, Math.floor((bx0 - 1500) / gap) * gap, Math.floor((by0 - 1000) / gap) * gap);
+  }
 
   // Where a link leaves and enters a card.
   function edge(w, side) {
@@ -151,7 +160,7 @@ KIT.canvasMaster = function (master, tl, comps) {
   }
   // Connector lines (under the cards).
   var lineCol = cv.line ? KIT.hex(cv.line) : C.signalBright;
-  for (var m = 0; m < moves.length; m++) {
+  for (var m = 0; m < moves.length && showLines; m++) {
     var b = moves[m].i;
     var a = b - 1;
     var lk = tl.scenes[b].link || {};
@@ -204,6 +213,11 @@ KIT.canvasMaster = function (master, tl, comps) {
     Lc.outPoint = tl.total;
     Lc.inPoint = 0;
     hang(Lc, ws[i][0], ws[i][1]);
+    if (world) {
+      Lc.collapseTransformation = true;
+      Lc.property('ADBE Transform Group').property('ADBE Rotate Z').setValue(s.rot || 0);
+      continue;
+    }
     var ol = KIT.shapeLayer(master, 'Card edge ' + s.id);
     var og = KIT.group(ol, 'Edge');
     KIT.rectIn(og, W + 6, H + 6, 0);
@@ -219,14 +233,24 @@ KIT.canvasMaster = function (master, tl, comps) {
   var VX = view.property('ADBE Transform Group').property('ADBE Position_0');
   var VY = view.property('ADBE Transform Group').property('ADBE Position_1');
   var VS = view.property('ADBE Transform Group').property('ADBE Scale');
+  var VR = view.property('ADBE Transform Group').property('ADBE Rotate Z');
   var CX = W / 2;
   var CY = H / 2;
-  function put(t, w, sc2) {
-    VX.setValueAtTime(t, CX - sc2 * w[0]);
-    VY.setValueAtTime(t, CY - sc2 * w[1]);
+  // The view turned by phi (degrees, clockwise) and scaled by sc2, centred on world point w.
+  function put(t, w, sc2, phi) {
+    phi = phi || 0;
+    var a = phi * Math.PI / 180;
+    var rx = w[0] * Math.cos(a) - w[1] * Math.sin(a);
+    var ry = w[0] * Math.sin(a) + w[1] * Math.cos(a);
+    VX.setValueAtTime(t, CX - sc2 * rx);
+    VY.setValueAtTime(t, CY - sc2 * ry);
     VS.setValueAtTime(t, [sc2 * 100, sc2 * 100]);
+    if (world) VR.setValueAtTime(t, phi);
   }
-  put(0, ws[0], 1);
+  function rotOf(k) {
+    return world ? -(tl.scenes[k].rot || 0) : 0;
+  }
+  put(0, ws[0], 1, rotOf(0));
   var mid = [(bx0 + bx1) / 2, (by0 + by1) / 2];
   var fit = Math.min(W / (bx1 - bx0 + 900), H / (by1 - by0 + 700));
   for (m = 0; m < moves.length; m++) {
@@ -234,7 +258,11 @@ KIT.canvasMaster = function (master, tl, comps) {
     var wb = ws[moves[m].i];
     var over = !!tl.scenes[moves[m].i].overview;
     var dd = Math.sqrt(Math.pow(wb[0] - wa[0], 2) + Math.pow(wb[1] - wa[1], 2));
-    var smin = over ? fit : Math.max(0.36, Math.min(0.8, 1 / (1 + 0.55 * dd / W)));
+    // A world pulls back further, so the scene you leave and the one you reach share the frame longer.
+    var smin = over ? fit : (world ? 0.42 : Math.max(0.36, Math.min(0.8, 1 / (1 + 0.55 * dd / W))));
+    var ra = rotOf(moves[m].i - 1);
+    var rb = rotOf(moves[m].i);
+    var tilt = world ? (cv.tilt === undefined ? 4 : cv.tilt) * (m % 2 ? -1 : 1) : 0;
     var N = Math.max(2, Math.round((moves[m].t1 - moves[m].t0) * fps));
     for (var f = 0; f <= N; f++) {
       var u = f / N;
@@ -250,14 +278,15 @@ KIT.canvasMaster = function (master, tl, comps) {
         w = [A[0] + (B[0] - A[0]) * ph, A[1] + (B[1] - A[1]) * ph];
         sv = Math.exp(Math.log(sa) + (Math.log(sb) - Math.log(sa)) * ph);
       } else {
-        var e = ease(u);
+        var e = world ? u * u * (3 - 2 * u) : ease(u);
         w = [wa[0] + (wb[0] - wa[0]) * e, wa[1] + (wb[1] - wa[1]) * e];
         sv = 1 - (1 - smin) * Math.sin(Math.PI * u);
       }
-      put(moves[m].t0 + f / fps, w, sv);
+      var ee = ease(u);
+      put(moves[m].t0 + f / fps, w, sv, ra + (rb - ra) * ee + tilt * Math.sin(Math.PI * u));
     }
   }
-  var props3 = [VX, VY, VS];
+  var props3 = world ? [VX, VY, VS, VR] : [VX, VY, VS];
   for (var pi = 0; pi < props3.length; pi++) {
     for (var kk = 1; kk <= props3[pi].numKeys; kk++) props3[pi].setInterpolationTypeAtKey(kk, KeyframeInterpolationType.LINEAR);
   }
@@ -319,7 +348,7 @@ KIT.buildFilm = function (job, log) {
     var props = s.props || {};
     // 3D transitions happen in MASTER; the scene then draws its own full background.
     // On a canvas every scene is a card whose background is always there.
-    props._transition = canvas ? 'canvas' : (KIT.MASTER_T[s.transition] ? 'none' : (s.transition || 'reveal'));
+    props._transition = canvas ? ((tl.canvas || {}).cards === false ? 'world' : 'canvas') : (KIT.MASTER_T[s.transition] ? 'none' : (s.transition || 'reveal'));
     props._credit = tl.credit;
     props._film = tl.slug;
     props._beat = tl.beat || 0.585;
