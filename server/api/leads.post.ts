@@ -6,6 +6,10 @@
  * No payment is taken here (All Access is a Stripe checkout); the owner
  * follows up by email.
  */
+// Explicit, not auto-imported: the auto-import of LEAD_INTERESTS silently went
+// missing from this route's bundle once (2026-11-24) and every request 500ed.
+import { LEAD_INTERESTS, ORG_KINDS, type OrgKind } from '#shared/utils/products'
+
 // Control characters out (they could break a Salesforce field or a log line).
 const clean = (v: unknown, n: number) => [...String(v ?? '')].map(c => (c.charCodeAt(0) < 32 || c.charCodeAt(0) === 127 ? ' ' : c)).join('').trim().slice(0, n)
 
