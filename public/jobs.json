@@ -1,14 +1,14 @@
 {
-  "updated": "2026-11-23T19:09:16.344Z",
+  "updated": "2026-11-25T13:21:02.449Z",
   "week": "2026-W48",
   "meta": {
-    "generatedAt": "2026-11-23T19:09:16.344Z",
-    "checkedAt": "2026-11-23T19:09:16.344Z",
+    "generatedAt": "2026-11-25T13:21:02.449Z",
+    "checkedAt": "2026-11-25T13:21:02.449Z",
     "counts": {
       "total": 8,
-      "live": 1,
-      "expired": 0,
-      "unknown": 7,
+      "live": 4,
+      "expired": 1,
+      "unknown": 3,
       "unverified": 0
     },
     "sources": [
@@ -21,15 +21,11 @@
       {
         "name": "Company board",
         "n": 10
-      },
-      {
-        "name": "Arbeitnow",
-        "n": 1
       }
     ],
     "dropped": {
-      "notOwner": 16,
-      "closedOnArrival": 1,
+      "notOwner": 0,
+      "closedOnArrival": 0,
       "expiredGone": 0,
       "old": 10
     },
@@ -40,28 +36,6 @@
     }
   },
   "jobs": [
-    {
-      "id": "b229bf998c4297b9",
-      "title": "Systems Analyst",
-      "company": "Salesforce",
-      "location": "Ireland - Dublin",
-      "remote": false,
-      "country": "IE",
-      "level": "mid",
-      "posted": "2026-11-19",
-      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/Ireland---Dublin/Systems-Analyst_JR363731",
-      "source": "Workday",
-      "skills": [
-        "Tableau",
-        "Apex",
-        "SQL"
-      ],
-      "via": "Company board",
-      "checkedAt": "2026-11-23T19:09:16.344Z",
-      "unknownRuns": 1,
-      "status": "unknown",
-      "reason": "Workday: 429"
-    },
     {
       "id": "fe7d3b61ffeb674d",
       "title": "Salesforce System Specialist Lead",
@@ -79,10 +53,33 @@
         "SQL"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-23T19:09:16.344Z",
-      "unknownRuns": 1,
+      "checkedAt": "2026-11-25T13:21:02.449Z",
+      "unknownRuns": 2,
       "status": "unknown",
       "reason": "Workday: 429"
+    },
+    {
+      "id": "b229bf998c4297b9",
+      "title": "Systems Analyst",
+      "company": "Salesforce",
+      "location": "Ireland - Dublin",
+      "remote": false,
+      "country": "IE",
+      "level": "mid",
+      "posted": "2026-11-19",
+      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/Ireland---Dublin/Systems-Analyst_JR363731",
+      "source": "Workday",
+      "skills": [
+        "Tableau",
+        "Apex",
+        "SQL"
+      ],
+      "via": "Company board",
+      "checkedAt": "2026-11-25T13:21:02.449Z",
+      "unknownRuns": 0,
+      "status": "expired",
+      "reason": "Workday: unposted",
+      "expiredAt": "2026-11-25T13:21:02.449Z"
     },
     {
       "id": "5f66659ab7e42858",
@@ -102,10 +99,10 @@
         "Service Cloud"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-23T19:09:16.344Z",
-      "unknownRuns": 1,
-      "status": "unknown",
-      "reason": "Workday: 429"
+      "checkedAt": "2026-11-25T13:21:02.449Z",
+      "unknownRuns": 0,
+      "status": "live",
+      "verifiedAt": "2026-11-25T13:21:02.449Z"
     },
     {
       "id": "d8d681d6472161fc",
@@ -122,10 +119,10 @@
         "Tableau"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-23T19:09:16.344Z",
-      "unknownRuns": 1,
-      "status": "unknown",
-      "reason": "Workday: 429"
+      "checkedAt": "2026-11-25T13:21:02.449Z",
+      "unknownRuns": 0,
+      "status": "live",
+      "verifiedAt": "2026-11-25T13:21:02.449Z"
     },
     {
       "id": "512560ba15cdadc5",
@@ -147,10 +144,10 @@
         "Apex"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-23T19:09:16.344Z",
-      "unknownRuns": 1,
-      "status": "unknown",
-      "reason": "Workday: 429"
+      "checkedAt": "2026-11-25T13:21:02.449Z",
+      "unknownRuns": 0,
+      "status": "live",
+      "verifiedAt": "2026-11-25T13:21:02.449Z"
     },
     {
       "id": "5dfd49c52bca0dee",
@@ -165,10 +162,10 @@
       "source": "Workday",
       "skills": [],
       "via": "Company board",
-      "checkedAt": "2026-11-23T19:09:16.344Z",
+      "checkedAt": "2026-11-25T13:21:02.449Z",
       "unknownRuns": 0,
       "status": "live",
-      "verifiedAt": "2026-11-23T19:09:16.344Z"
+      "verifiedAt": "2026-11-25T13:21:02.449Z"
     },
     {
       "id": "21fd23164d461dbd",
@@ -183,8 +180,8 @@
       "source": "Workday",
       "skills": [],
       "via": "Company board",
-      "checkedAt": "2026-11-23T19:09:16.344Z",
-      "unknownRuns": 1,
+      "checkedAt": "2026-11-25T13:21:02.449Z",
+      "unknownRuns": 2,
       "status": "unknown",
       "reason": "Workday: 429"
     },
@@ -203,8 +200,8 @@
         "Tableau"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-23T19:09:16.344Z",
-      "unknownRuns": 1,
+      "checkedAt": "2026-11-25T13:21:02.449Z",
+      "unknownRuns": 2,
       "status": "unknown",
       "reason": "Workday: 429"
     }
