@@ -1,15 +1,15 @@
 {
-  "updated": "2026-11-25T13:21:02.449Z",
+  "updated": "2026-11-26T12:59:55.820Z",
   "week": "2026-W48",
   "meta": {
-    "generatedAt": "2026-11-25T13:21:02.449Z",
-    "checkedAt": "2026-11-25T13:21:02.449Z",
+    "generatedAt": "2026-11-26T12:59:55.820Z",
+    "checkedAt": "2026-11-26T12:59:55.820Z",
     "counts": {
       "total": 8,
-      "live": 4,
+      "live": 1,
       "expired": 1,
-      "unknown": 3,
-      "unverified": 0
+      "unknown": 6,
+      "unverified": 2
     },
     "sources": [
       {
@@ -53,10 +53,10 @@
         "SQL"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-25T13:21:02.449Z",
-      "unknownRuns": 2,
-      "status": "unknown",
-      "reason": "Workday: 429"
+      "checkedAt": "2026-11-26T12:59:55.820Z",
+      "unknownRuns": 0,
+      "status": "live",
+      "verifiedAt": "2026-11-26T12:59:55.820Z"
     },
     {
       "id": "b229bf998c4297b9",
@@ -75,10 +75,10 @@
         "SQL"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-25T13:21:02.449Z",
-      "unknownRuns": 0,
+      "checkedAt": "2026-11-26T12:59:55.820Z",
+      "unknownRuns": 1,
       "status": "expired",
-      "reason": "Workday: unposted",
+      "reason": "Workday: 429",
       "expiredAt": "2026-11-25T13:21:02.449Z"
     },
     {
@@ -99,10 +99,11 @@
         "Service Cloud"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-25T13:21:02.449Z",
-      "unknownRuns": 0,
-      "status": "live",
-      "verifiedAt": "2026-11-25T13:21:02.449Z"
+      "checkedAt": "2026-11-26T12:59:55.820Z",
+      "unknownRuns": 1,
+      "status": "unknown",
+      "verifiedAt": "2026-11-25T13:21:02.449Z",
+      "reason": "Workday: 429"
     },
     {
       "id": "d8d681d6472161fc",
@@ -119,10 +120,11 @@
         "Tableau"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-25T13:21:02.449Z",
-      "unknownRuns": 0,
-      "status": "live",
-      "verifiedAt": "2026-11-25T13:21:02.449Z"
+      "checkedAt": "2026-11-26T12:59:55.820Z",
+      "unknownRuns": 1,
+      "status": "unknown",
+      "verifiedAt": "2026-11-25T13:21:02.449Z",
+      "reason": "Workday: 429"
     },
     {
       "id": "512560ba15cdadc5",
@@ -144,10 +146,11 @@
         "Apex"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-25T13:21:02.449Z",
-      "unknownRuns": 0,
-      "status": "live",
-      "verifiedAt": "2026-11-25T13:21:02.449Z"
+      "checkedAt": "2026-11-26T12:59:55.820Z",
+      "unknownRuns": 1,
+      "status": "unknown",
+      "verifiedAt": "2026-11-25T13:21:02.449Z",
+      "reason": "Workday: 429"
     },
     {
       "id": "5dfd49c52bca0dee",
@@ -162,10 +165,11 @@
       "source": "Workday",
       "skills": [],
       "via": "Company board",
-      "checkedAt": "2026-11-25T13:21:02.449Z",
-      "unknownRuns": 0,
-      "status": "live",
-      "verifiedAt": "2026-11-25T13:21:02.449Z"
+      "checkedAt": "2026-11-26T12:59:55.820Z",
+      "unknownRuns": 1,
+      "status": "unknown",
+      "verifiedAt": "2026-11-25T13:21:02.449Z",
+      "reason": "Workday: 429"
     },
     {
       "id": "21fd23164d461dbd",
@@ -180,8 +184,8 @@
       "source": "Workday",
       "skills": [],
       "via": "Company board",
-      "checkedAt": "2026-11-25T13:21:02.449Z",
-      "unknownRuns": 2,
+      "checkedAt": "2026-11-26T12:59:55.820Z",
+      "unknownRuns": 3,
       "status": "unknown",
       "reason": "Workday: 429"
     },
@@ -200,8 +204,8 @@
         "Tableau"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-25T13:21:02.449Z",
-      "unknownRuns": 2,
+      "checkedAt": "2026-11-26T12:59:55.820Z",
+      "unknownRuns": 3,
       "status": "unknown",
       "reason": "Workday: 429"
     }
