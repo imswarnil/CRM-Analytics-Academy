@@ -1,20 +1,20 @@
 {
-  "updated": "2026-11-26T12:59:55.820Z",
+  "updated": "2026-11-27T12:56:12.445Z",
   "week": "2026-W48",
   "meta": {
-    "generatedAt": "2026-11-26T12:59:55.820Z",
-    "checkedAt": "2026-11-26T12:59:55.820Z",
+    "generatedAt": "2026-11-27T12:56:12.445Z",
+    "checkedAt": "2026-11-27T12:56:12.445Z",
     "counts": {
-      "total": 8,
+      "total": 7,
       "live": 1,
       "expired": 1,
-      "unknown": 6,
-      "unverified": 2
+      "unknown": 5,
+      "unverified": 1
     },
     "sources": [
       {
         "name": "Workday",
-        "n": 8
+        "n": 7
       }
     ],
     "found": [
@@ -27,7 +27,7 @@
       "notOwner": 0,
       "closedOnArrival": 0,
       "expiredGone": 0,
-      "old": 10
+      "old": 11
     },
     "rules": {
       "keepDays": 30,
@@ -53,10 +53,10 @@
         "SQL"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-26T12:59:55.820Z",
+      "checkedAt": "2026-11-27T12:56:12.445Z",
       "unknownRuns": 0,
       "status": "live",
-      "verifiedAt": "2026-11-26T12:59:55.820Z"
+      "verifiedAt": "2026-11-27T12:56:12.445Z"
     },
     {
       "id": "b229bf998c4297b9",
@@ -75,8 +75,8 @@
         "SQL"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-26T12:59:55.820Z",
-      "unknownRuns": 1,
+      "checkedAt": "2026-11-27T12:56:12.445Z",
+      "unknownRuns": 2,
       "status": "expired",
       "reason": "Workday: 429",
       "expiredAt": "2026-11-25T13:21:02.449Z"
@@ -99,8 +99,8 @@
         "Service Cloud"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-26T12:59:55.820Z",
-      "unknownRuns": 1,
+      "checkedAt": "2026-11-27T12:56:12.445Z",
+      "unknownRuns": 2,
       "status": "unknown",
       "verifiedAt": "2026-11-25T13:21:02.449Z",
       "reason": "Workday: 429"
@@ -120,8 +120,8 @@
         "Tableau"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-26T12:59:55.820Z",
-      "unknownRuns": 1,
+      "checkedAt": "2026-11-27T12:56:12.445Z",
+      "unknownRuns": 2,
       "status": "unknown",
       "verifiedAt": "2026-11-25T13:21:02.449Z",
       "reason": "Workday: 429"
@@ -146,11 +146,11 @@
         "Apex"
       ],
       "via": "Company board",
-      "checkedAt": "2026-11-26T12:59:55.820Z",
-      "unknownRuns": 1,
+      "checkedAt": "2026-11-27T12:56:12.445Z",
+      "unknownRuns": 2,
       "status": "unknown",
       "verifiedAt": "2026-11-25T13:21:02.449Z",
-      "reason": "Workday: 429"
+      "reason": "Workday: 403"
     },
     {
       "id": "5dfd49c52bca0dee",
@@ -165,8 +165,8 @@
       "source": "Workday",
       "skills": [],
       "via": "Company board",
-      "checkedAt": "2026-11-26T12:59:55.820Z",
-      "unknownRuns": 1,
+      "checkedAt": "2026-11-27T12:56:12.445Z",
+      "unknownRuns": 2,
       "status": "unknown",
       "verifiedAt": "2026-11-25T13:21:02.449Z",
       "reason": "Workday: 429"
@@ -184,28 +184,8 @@
       "source": "Workday",
       "skills": [],
       "via": "Company board",
-      "checkedAt": "2026-11-26T12:59:55.820Z",
-      "unknownRuns": 3,
-      "status": "unknown",
-      "reason": "Workday: 429"
-    },
-    {
-      "id": "52940bf5f30a1bb7",
-      "title": "Productivity Senior Director",
-      "company": "Salesforce",
-      "location": "California - San Francisco",
-      "remote": false,
-      "country": "US",
-      "level": "lead",
-      "posted": "2026-10-27",
-      "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/California---San-Francisco/Productivity-Senior-Director_JR365319",
-      "source": "Workday",
-      "skills": [
-        "Tableau"
-      ],
-      "via": "Company board",
-      "checkedAt": "2026-11-26T12:59:55.820Z",
-      "unknownRuns": 3,
+      "checkedAt": "2026-11-27T12:56:12.445Z",
+      "unknownRuns": 4,
       "status": "unknown",
       "reason": "Workday: 429"
     }
